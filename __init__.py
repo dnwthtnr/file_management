@@ -1,5 +1,8 @@
 import json, os, sys
 
+
+APPDATA = os.path.expanduser(os.path.join("~", "AppData"))
+
 def read_json(path):
     with open(path, 'r') as file:
         _data = json.load(file)
