@@ -40,6 +40,26 @@ def add_suffix_to_filepath(filepath, suffix):
     return _path
 
 
+def get_file_name_from_path(filepath):
+    _path = pathlib.Path(filepath)
+    return _path.stem
+
+def generate_unique_file_name(directory, root_name):
+    _name = os.path.join(directory, root_name)
+
+    _count = 0
+    while os.path.exists(_name):
+        _file_name = get_file_name_from_path(_name)
+
+        _split_file_name = _file_name.split("_")
+        if _split_file_name[-1].isnumeric() and len(_split_file_name) > 1:
+            _file_name = "".join(_split_file_name[:-1])
+
+        _name = os.path.join(directory, f"{_file_name}_0{_count}")
+
+    return _name
+
+
 
 if __name__ == "__main__":
     _p = r"C:\Users\Tanner - Work\Documents\Settings\queues.json"
