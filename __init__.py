@@ -10,9 +10,11 @@ def read_json(path):
     return _data
 
 
-def write_json(path, data):
+def write_json(path, data={}):
     with open(path, 'w') as file:
         file.write(json.dumps(data, indent=4, sort_keys=True))
+
+
 
 
 def get_filepath_with_suffix(filepath, suffix):
@@ -45,6 +47,18 @@ def get_file_name_from_path(filepath):
     return _path.stem
 
 def generate_unique_file_name(directory, root_name):
+    """
+    Given a directory and rootname will generate and return a unique path
+
+    Parameters
+    ----------
+    directory
+    root_name
+
+    Returns
+    -------
+
+    """
     _name = os.path.join(directory, root_name)
 
     _count = 0
@@ -58,6 +72,29 @@ def generate_unique_file_name(directory, root_name):
         _name = os.path.join(directory, f"{_file_name}_0{_count}")
 
     return _name
+
+def create_file(filepath):
+    """
+    Will create the given file and if necessary populate it with the default data
+
+    Parameters
+    ----------
+    filepath
+
+    Returns
+    -------
+
+    """
+    _pathobj = pathlib.Path(filepath)
+    _ext = _pathobj.suffix
+
+    print(_ext)
+
+    if _ext in [".json", "json", ".JSON", "JSON"]:
+        write_json(filepath)
+        return
+
+    os.write("", filepath)
 
 
 
